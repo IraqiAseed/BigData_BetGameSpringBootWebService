@@ -1,11 +1,10 @@
 package com.epam.controller;
 
 import com.epam.model.BasicStatistics;
-import com.epam.model.Users;
 import com.epam.model.UsersScala;
+import com.epam.services.implementation.initialize.UserService;
 import com.epam.services.implementation.manager.StatisticsManager;
 import com.epam.services.implementation.manager.SuspiciousManager;
-import com.epam.services.implementation.initialize.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

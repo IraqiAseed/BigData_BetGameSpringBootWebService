@@ -16,20 +16,12 @@ import java.util.List;
 @Transactional
 public class UserService {
 
-    public UserService(SparkSession sparkSession) {
-        this.sparkSession = sparkSession;
-    }
-
-    private SparkSession sparkSession;
-
     @Autowired
     private UserRepository userRepository;
 
 
     @EventListener(ContextRefreshedEvent.class)
-    public List<Users> getAllUsers()
-    {
-      //  System.out.println(userRepository.findAll().toString());
+    public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
