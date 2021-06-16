@@ -1,8 +1,11 @@
 package com.epam.controller;
 
-import com.epam.services.StatisticsManager;
-import com.epam.services.SuspiciousManager;
-import com.epam.services.UserService;
+import com.epam.model.BasicStatistics;
+import com.epam.model.Users;
+import com.epam.model.UsersScala;
+import com.epam.services.implementation.manager.StatisticsManager;
+import com.epam.services.implementation.manager.SuspiciousManager;
+import com.epam.services.implementation.initialize.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,19 +29,22 @@ public class BetController {
 
 
     @GetMapping("suspicious")
-    public void suspiciousActivities(@RequestParam String startTime, @RequestParam String endTime) {
-        suspiciousManager.validateAll(startTime, endTime);
+    public String suspiciousActivities(@RequestParam String startTime, @RequestParam String endTime) {
+        java.util.List<java.util.List<UsersScala>> users =  suspiciousManager.validateAll(startTime, endTime);
 
+        return users.toString();
     }
 
     @GetMapping("statistics/game")
-    public void getStatisticsForGame(@RequestParam String game, @RequestParam String startTime, @RequestParam String endTime) {
-        statisticsManager.showGameStatistics(startTime, endTime, game);
+    public String getStatisticsForGame(@RequestParam String game, @RequestParam String startTime, @RequestParam String endTime) {
+        java.util.List<java.util.List<BasicStatistics>> statistics = statisticsManager.showGameStatistics(startTime, endTime, game);
+        return statistics.toString();
     }
 
-    @GetMapping("statistics/games")
-    public void getStatisticsForAllGames(@RequestParam String startTime, @RequestParam String endTime) {
-        statisticsManager.showGameStatistics(startTime, endTime, null);
+   @GetMapping("statistics/games")
+    public String getStatisticsForAllGames(@RequestParam String startTime, @RequestParam String endTime) {
+       java.util.List<java.util.List<BasicStatistics>> statistics = statisticsManager.showGameStatistics(startTime, endTime, null);
+       return statistics.toString();
     }
 
 

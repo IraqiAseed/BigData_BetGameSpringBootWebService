@@ -1,9 +1,10 @@
-package com.epam.services
+package com.epam.services.implementation.initialize
 
-import org.apache.spark.sql.functions.{col, not, when}
+import com.epam.services.intrface.TimeFilter
+import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Dataset, Row}
-import org.apache.spark.storage.StorageLevel
 import org.springframework.stereotype.Component
+
 import java.sql.Timestamp
 
 @Component

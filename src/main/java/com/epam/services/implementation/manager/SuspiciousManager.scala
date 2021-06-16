@@ -1,7 +1,11 @@
-package com.epam.services
+package com.epam.services.implementation.manager
 
+import com.epam.model.{BasicStatistics, Users, UsersScala}
 import com.epam.repo.EventRepository
-import org.apache.spark.sql.{Dataset, Row}
+import com.epam.services.implementation.enrichmentator.Enrichmentator
+import com.epam.services.intrface.{Suspicious, TimeFilter, UsersSuspicious, Validator}
+import org.apache.spark.sql
+import org.apache.spark.sql.{Dataset, Encoders, Row}
 import org.apache.spark.storage.StorageLevel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -18,7 +22,11 @@ class SuspiciousManager(eventRepository: EventRepository, enrichmentator: Enrich
   @Autowired
   var initValidatorList: util.List[Validator] = _
 
-  def validateAll(startTime: String, endTime: String): Dataset[Row] = {
+  def validateAll(startTime: String, endTime: String): java.util.List[java.util.List[UsersScala]]  = {
+
+    val encoder: sql.Encoder[UsersScala] = Encoders.product[UsersScala]
+    var usersList: java.util.List[java.util.List[UsersScala]] = new java.util.ArrayList[java.util.List[UsersScala]]
+
 
     var events = eventRepository.readEvents()
 
@@ -40,8 +48,10 @@ class SuspiciousManager(eventRepository: EventRepository, enrichmentator: Enrich
 
     events = usersSuspicious.suspicious(events) //this validator changes the DF structure with groupby, so last
 
-    enrichmentator.showUsersDataFromIdDf(events)
+    val usersResult = enrichmentator.showUsersDataFromIdDf(events)
 
-    events
+    usersList.add(usersResult.as[UsersScala](encoder).collectAsList())
+
+    usersList
   }
 }

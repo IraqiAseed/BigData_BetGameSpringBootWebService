@@ -1,4 +1,4 @@
-package com.epam.services;
+package com.epam.services.implementation.initialize;
 
 import com.epam.model.Users;
 import com.epam.repo.UserRepository;
@@ -27,7 +27,9 @@ public class UserService {
 
 
     @EventListener(ContextRefreshedEvent.class)
-    public List<Users> getAllUsers() {
+    public List<Users> getAllUsers()
+    {
+      //  System.out.println(userRepository.findAll().toString());
         return userRepository.findAll();
     }
 

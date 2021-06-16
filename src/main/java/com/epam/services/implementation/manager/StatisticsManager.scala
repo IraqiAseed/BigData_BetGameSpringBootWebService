@@ -1,7 +1,11 @@
-package com.epam.services
+package com.epam.services.implementation.manager
 
+import com.epam.model.BasicStatistics
 import com.epam.repo.EventRepository
-import org.apache.spark.sql.{Dataset, Row}
+import com.epam.services.implementation.statistics.GameStatistics
+import com.epam.services.intrface.{TimeFilter, Validator}
+import org.apache.spark.sql
+import org.apache.spark.sql.Encoders
 import org.apache.spark.storage.StorageLevel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -18,7 +22,10 @@ class StatisticsManager(eventRepository: EventRepository, timeFilter: TimeFilter
   @Autowired
   var gameStatistics: GameStatistics = _
 
-  def showGameStatistics(startTime: String, endTime: String, game: String): Unit = {
+
+  def showGameStatistics(startTime: String, endTime: String, game: String): java.util.List[java.util.List[BasicStatistics]] = {
+
+    var statisticsList: java.util.List[java.util.List[BasicStatistics]] = new java.util.ArrayList[java.util.List[BasicStatistics]]
 
     var events = eventRepository.readEvents()
 
@@ -33,11 +40,12 @@ class StatisticsManager(eventRepository: EventRepository, timeFilter: TimeFilter
     }
 
     if (game == null || game.isEmpty) {
-      gameStatistics.statistics(events = events)
+      statisticsList = gameStatistics.statistics(events = events)
     }
     else {
-      gameStatistics.statistics(game = game, events = events)
+      statisticsList = gameStatistics.statistics(game = game, events = events)
     }
 
+    statisticsList
   }
 }

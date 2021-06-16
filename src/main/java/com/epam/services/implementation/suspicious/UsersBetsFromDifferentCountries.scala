@@ -1,5 +1,6 @@
-package com.epam.services
+package com.epam.services.implementation.suspicious
 
+import com.epam.services.intrface.UsersSuspicious
 import org.apache.spark.sql.functions.{col, countDistinct}
 import org.apache.spark.sql.{Dataset, Row}
 import org.springframework.stereotype.Component
