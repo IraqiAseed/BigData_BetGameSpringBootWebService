@@ -1,5 +1,6 @@
 # BigData_BetGameSpringBootWebService
-webserive - spring boot - scala - java - spark - Dataset
+webserive - spring boot - scala - java - spark - Dataset - read SQL file to H2 - read json file - implicit adapter - encoders
+logback.xml user.properties
 
 end points:
 
