@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/bets/")
-public class UsersController {
+public class BetController {
 
     @Autowired
     private UserService userService;
