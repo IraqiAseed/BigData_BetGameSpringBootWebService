@@ -25,14 +25,12 @@ public class BetController {
     private StatisticsManager statisticsManager;
 
 
-    //http://localhost:8080/bets/suspiciousAgg?startTime=2014-01-01%2009:55:14&endTime=2014-01-30%2010:55:14
     @GetMapping("suspicious")
     public void suspiciousActivities(@RequestParam String startTime, @RequestParam String endTime) {
         suspiciousManager.validateAll(startTime, endTime);
 
     }
 
-    //http://localhost:8080/bets/statistics/game?game=whist&startTime=2014-01-01%2009:55:14%20&endTime=2014-12-31%2010:55:14
     @GetMapping("statistics/game")
     public void getStatisticsForGame(@RequestParam String game, @RequestParam String startTime, @RequestParam String endTime) {
         statisticsManager.showGameStatistics(startTime, endTime, game);
