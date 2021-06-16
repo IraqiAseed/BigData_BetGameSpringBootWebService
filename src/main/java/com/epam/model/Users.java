@@ -19,9 +19,7 @@ import java.io.Serializable;
 public class Users implements Serializable {
     @Id
     private Integer id;
-
     private String name;
-
     private String lastName;
     private String countryOfOrigin;
     private String email;
