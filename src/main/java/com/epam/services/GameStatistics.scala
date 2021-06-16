@@ -1,13 +1,8 @@
 package com.epam.services
 
-import com.epam.model.BasicStatistics
-import com.sun.tools.javac.util.List.nil
-import org.apache.spark.sql
-import org.apache.spark.sql.functions.{avg, col, lit, max, min}
-import org.apache.spark.sql.{Dataset, Encoders, Row, SparkSession, functions}
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.{Dataset, Row, SparkSession, functions}
 import org.springframework.stereotype.Component
-import java.util
-import scala.::
 
 @Component
 class GameStatistics(sparkSession: SparkSession) extends Statistics {
